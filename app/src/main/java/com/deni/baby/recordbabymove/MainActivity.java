@@ -38,15 +38,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
@@ -64,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         builder.setContent(mRemoteViews);
         builder.setAutoCancel(false);
-        builder.setTicker("this is ticker text");
-        builder.setContentTitle("WhatsApp Notification");
-        builder.setContentText("You have a new message");
+        builder.setTicker("记录宝宝胎动");
+        builder.setContentTitle("宝宝胎动记录");
+        builder.setContentText("");
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentIntent(recordPendingIntent);
         builder.setOngoing(true);
