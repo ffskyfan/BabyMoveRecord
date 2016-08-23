@@ -117,12 +117,12 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db=helper.getReadableDatabase();
 
         try{
-            Cursor cursor=db.rawQuery("SELECT * FROM "+RecordDBHelper.TABLE_NAME, null);
+            Cursor cursor=db.rawQuery("SELECT Id,datetime(Time,'localtime') FROM "+RecordDBHelper.TABLE_NAME, null);
 
             if(cursor.moveToFirst()) {
                 do {
                     Integer appId = cursor.getInt(cursor.getColumnIndex("Id"));
-                    String appName = cursor.getString(cursor.getColumnIndex("Time"));
+                    String appName = cursor.getString( cursor.getColumnIndex("datetime(Time,'localtime')") );
 
                     HashMap<String, Object> map = new HashMap<String, Object>();
                     map.put("Id", appId);

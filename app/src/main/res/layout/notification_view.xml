@@ -5,24 +5,29 @@
     android:weightSum="1">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="81dp"
+        android:layout_width="88dp"
+        android:layout_height="65dp"
         android:id="@+id/imageView"
-        android:src="@mipmap/ic_launcher"
-        android:layout_weight="0.15" />
+        android:src="@mipmap/sweet_icon"
+        android:scaleType="centerInside" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="75dp"
-        android:text="\n\n点击按钮记录胎动"
+        android:layout_height="69dp"
+        android:text="\n点击按钮记录胎动"
         android:id="@+id/textView2"
-        android:layout_weight="0.19" />
+        android:textStyle="bold" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="81dp"
+        android:layout_width="123dp"
+        android:layout_height="69dp"
         android:id="@+id/imageButton2"
         android:clickable="false"
-        android:layout_weight="0.28" />
+        android:src="@mipmap/finger"
+        android:adjustViewBounds="false"
+        android:background="#00ffffff"
+        style="@android:style/Widget.Holo.Light.ImageButton"
+        android:scaleType="fitCenter"
+        android:layout_weight="0.74" />
 
 </LinearLayout>

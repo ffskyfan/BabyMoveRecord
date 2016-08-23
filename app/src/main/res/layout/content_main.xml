@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.deni.baby.recordbabymove.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:touchscreenBlocksFocus="false">
 
     <Button
         android:layout_width="wrap_content"
@@ -18,7 +19,7 @@
         android:text="刷新"
         android:id="@+id/button"
         android:onClick="startService"
-        android:layout_marginBottom="45dp"
+        style="@style/Base.TextAppearance.AppCompat.Button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -26,26 +27,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/button"
         android:choiceMode="singleChoice"
+        style="@android:style/Widget.Holo.ExpandableListView"
+        android:layout_above="@+id/button"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/textView" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="ID"
         android:id="@+id/textView"
-        android:layout_alignParentStart="true"
+        style="@style/Base.V12.Widget.AppCompat.AutoCompleteTextView"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/button" />
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="153dp"
         android:layout_height="wrap_content"
         android:text="时间"
         android:id="@+id/textView3"
+        style="@style/Base.V12.Widget.AppCompat.AutoCompleteTextView"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/button" />
+        android:layout_alignEnd="@+id/listView"
+        android:layout_toEndOf="@+id/textView" />
 
 </RelativeLayout>
