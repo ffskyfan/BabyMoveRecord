@@ -20,12 +20,6 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".NotificationService"
-            android:icon="@mipmap/ic_launcher"
-            android:label="NotificationService" >
-        </service>
-
         <receiver android:name=".RecordReceiver">
             <intent-filter >
                 <action android:name="android.intent.action.MEDIA_BUTTON"/>

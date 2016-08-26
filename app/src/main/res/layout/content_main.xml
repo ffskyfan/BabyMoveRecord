@@ -9,47 +9,58 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.deni.baby.recordbabymove.MainActivity"
-    tools:showIn="@layout/activity_main"
     android:touchscreenBlocksFocus="false">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="刷新"
-        android:id="@+id/button"
-        android:onClick="startService"
-        style="@style/Base.TextAppearance.AppCompat.Button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+    <TabHost
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tabHost">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:choiceMode="singleChoice"
-        style="@android:style/Widget.Holo.ExpandableListView"
-        android:layout_above="@+id/button"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/textView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="ID"
-        android:id="@+id/textView"
-        style="@style/Base.V12.Widget.AppCompat.AutoCompleteTextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TabWidget>
 
-    <TextView
-        android:layout_width="153dp"
-        android:layout_height="wrap_content"
-        android:text="时间"
-        android:id="@+id/textView3"
-        style="@style/Base.V12.Widget.AppCompat.AutoCompleteTextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/listView"
-        android:layout_toEndOf="@+id/textView" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        layout="@layout/list_main" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        layout="@layout/line_chart_main" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"></LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 </RelativeLayout>

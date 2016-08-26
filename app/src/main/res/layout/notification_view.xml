@@ -26,7 +26,6 @@
         android:src="@mipmap/finger"
         android:adjustViewBounds="false"
         android:background="#00ffffff"
-        style="@android:style/Widget.Holo.Light.ImageButton"
         android:scaleType="fitCenter"
         android:layout_weight="0.74" />
 

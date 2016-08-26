@@ -25,6 +25,11 @@ public class RecordDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+
+        if(oldVersion<=3 && newVersion==4){
+
+        }
+
         String sql = "DROP TABLE IF EXISTS " + TABLE_NAME;
         sqLiteDatabase.execSQL(sql);
         onCreate(sqLiteDatabase);

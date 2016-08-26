@@ -6,27 +6,23 @@ import android.app.PendingIntent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.content.ServiceConnection;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ComponentName;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.SimpleAdapter;
+import android.widget.TabHost;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     String ACTION_DIALOG = "android.intent.action.MEDIA_BUTTON";
 
@@ -41,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-
-        //PendingIntent recordPendingIntent = PendingIntent.getBroadcast(this, 1, new Intent(this, RecordReceiver.class), PendingIntent.FLAG_CANCEL_CURRENT);
-
         Intent clickIntent = new Intent();
         clickIntent.setAction(ACTION_DIALOG);
         PendingIntent recordPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -52,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mRemoteViews.setOnClickPendingIntent(R.layout.notification_view, recordPendingIntent);
 
         Notification.Builder builder = new Notification.Builder(this);
-
         builder.setContent(mRemoteViews);
         builder.setAutoCancel(false);
         builder.setTicker("记录宝宝胎动");
@@ -65,13 +57,36 @@ public class MainActivity extends AppCompatActivity {
         Notification mNotification = builder.build();
         manager.notify(0, mNotification);
 
-        ListView listView=(ListView)findViewById(R.id.listView);
-        //获取查询结果
-        ArrayList<HashMap<String, Object>> listData=fillList();
-        //获取适配器
-        SimpleAdapter adapter=fillAdapter(listData);
-        //添加并且显示
-        listView.setAdapter(adapter);
+
+        TabHost host = (TabHost) findViewById(R.id.tabHost);
+        if(host !=null){
+            host.setup();
+
+            TabHost.TabSpec homeSpec = host.newTabSpec("Home"); // This param will
+            // be used as tabId.
+            homeSpec.setIndicator(null, // This param will diplay as title.
+                    getResources().getDrawable(R.drawable.sweet_icon));
+            homeSpec.setContent(R.id.linearLayout);
+            host.addTab(homeSpec);
+
+
+            TabHost.TabSpec homeSpec2 = host.newTabSpec("Home2"); // This param will
+            // be used as tabId.
+            homeSpec2.setIndicator(null, // This param will diplay as title.
+                    getResources().getDrawable(R.drawable.sweet_icon));
+            homeSpec2.setContent(R.id.linearLayout2);
+            host.addTab(homeSpec2);
+
+        }
+
+
+        //ListView listView=(ListView)findViewById(R.id.listView);
+        ////获取查询结果
+        //ArrayList<HashMap<String, Object>> listData=fillList();
+        ////获取适配器
+        //SimpleAdapter adapter=fillAdapter(listData);
+        ////添加并且显示
+        //listView.setAdapter(adapter);
 
     }
 
