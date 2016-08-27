@@ -8,6 +8,7 @@ import android.util.Log;
 
 /**
  * Created by loveislife on 2016/8/23.
+ *
  */
 public class RecordReceiver extends BroadcastReceiver{
 

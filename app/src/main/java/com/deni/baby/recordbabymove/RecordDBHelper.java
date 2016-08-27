@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by loveislife on 2016/8/23.
+ *
  */
 public class RecordDBHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 3;
@@ -25,10 +26,6 @@ public class RecordDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-
-        if(oldVersion<=3 && newVersion==4){
-
-        }
 
         String sql = "DROP TABLE IF EXISTS " + TABLE_NAME;
         sqLiteDatabase.execSQL(sql);

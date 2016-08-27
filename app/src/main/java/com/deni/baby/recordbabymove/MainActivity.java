@@ -19,6 +19,8 @@ import android.widget.RemoteViews;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 
+import com.deni.baby.recordbabymove.content_view.RecordList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity  {
 
     String ACTION_DIALOG = "android.intent.action.MEDIA_BUTTON";
 
+    private RecordList recordList = new RecordList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        recordList.setContext(this);
 
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -62,32 +68,24 @@ public class MainActivity extends AppCompatActivity  {
         if(host !=null){
             host.setup();
 
-            TabHost.TabSpec homeSpec = host.newTabSpec("Home"); // This param will
-            // be used as tabId.
-            homeSpec.setIndicator(null, // This param will diplay as title.
-                    getResources().getDrawable(R.drawable.sweet_icon));
-            homeSpec.setContent(R.id.linearLayout);
-            host.addTab(homeSpec);
+            TabHost.TabSpec listSpec = host.newTabSpec("List");
+            listSpec.setIndicator("数据", null);
+            listSpec.setContent(R.id.content_record_list);
+            host.addTab(listSpec);
 
+            TabHost.TabSpec chartSpec = host.newTabSpec("Chart");
+            chartSpec.setIndicator("图表", null);
+            chartSpec.setContent(R.id.content_record_line_chart);
+            host.addTab(chartSpec);
 
-            TabHost.TabSpec homeSpec2 = host.newTabSpec("Home2"); // This param will
-            // be used as tabId.
-            homeSpec2.setIndicator(null, // This param will diplay as title.
-                    getResources().getDrawable(R.drawable.sweet_icon));
-            homeSpec2.setContent(R.id.linearLayout2);
-            host.addTab(homeSpec2);
-
+            TabHost.TabSpec timesSpec = host.newTabSpec("Times");
+            timesSpec.setIndicator("计数", null);
+            timesSpec.setContent(R.id.content_record_times);
+            host.addTab(timesSpec);
         }
 
-
-        //ListView listView=(ListView)findViewById(R.id.listView);
-        ////获取查询结果
-        //ArrayList<HashMap<String, Object>> listData=fillList();
-        ////获取适配器
-        //SimpleAdapter adapter=fillAdapter(listData);
-        ////添加并且显示
-        //listView.setAdapter(adapter);
-
+        ListView listView=(ListView)findViewById(R.id.listView);
+        recordList.refreshList(listView);
     }
 
     @Override
@@ -115,69 +113,7 @@ public class MainActivity extends AppCompatActivity  {
     public void startService(View view)
     {
         ListView listView=(ListView)findViewById(R.id.listView);
-        //获取查询结果
-        ArrayList<HashMap<String, Object>> listData=fillList();
-        //获取适配器
-        SimpleAdapter adapter=fillAdapter(listData);
-        //添加并且显示
-        listView.setAdapter(adapter);
+        recordList.refreshList(listView);
     }
 
-    public  ArrayList<HashMap<String, Object>> fillList(){
-
-        //生成动态数组，并且转载数据
-        ArrayList<HashMap<String, Object>> dataList = new ArrayList<HashMap<String, Object>>();
-
-        RecordDBHelper helper=new RecordDBHelper(this);
-        SQLiteDatabase db=helper.getReadableDatabase();
-
-        try{
-            Cursor cursor=db.rawQuery("SELECT Id,datetime(Time,'localtime') FROM "+RecordDBHelper.TABLE_NAME, null);
-
-            if(cursor.moveToFirst()) {
-                do {
-                    Integer appId = cursor.getInt(cursor.getColumnIndex("Id"));
-                    String appName = cursor.getString( cursor.getColumnIndex("datetime(Time,'localtime')") );
-
-                    HashMap<String, Object> map = new HashMap<String, Object>();
-                    map.put("Id", appId);
-                    map.put("Time", appName);
-                    dataList.add(map);
-                }while (cursor.moveToNext());
-            }
-
-            Log.i("MainActivity","Query Finish");
-
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally{
-
-            if(db.isOpen()){
-                db.close();
-            }
-        }
-
-        return dataList;
-    }
-
-    /**
-     * 填充数据，取得数据适配器.
-     * @param listData
-     * @return
-     */
-    public SimpleAdapter fillAdapter(ArrayList<HashMap<String, Object>> listData){
-
-
-        //生成适配器，数组===》ListItem
-        SimpleAdapter adapter = new SimpleAdapter(this,
-                listData,//数据来源
-                R.layout.record_item,//ListItem的XML实现
-                //动态数组与ListItem对应的子项
-                new String[] {"Id", "Time"},
-                //ListItem的XML文件里面的两个TextView ID
-                new int[] {R.id.TextId,R.id.TextTime});
-
-        return adapter;
-
-    }
 }
